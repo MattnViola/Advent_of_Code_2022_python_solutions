@@ -1,34 +1,35 @@
-# If both are ints, compare int. if not equal, first index should have lower. Shorter list should be first index.
-# If both are lists, inspect elements in list, if not equal, first index should be lower, shorter nested list should be left.
-# if one of each, convert integer to list, with that integer as its only value. then go to rules above.
-
-
-
-# Sum of correct ordered pairs' indexes
-
+# Need to organize them all now, with [[2]] and [[6]] added
+# Then multiply the indexes of the two above.
 
 def main():
     data = [None]
     correct_order = 0
 
     with open('input.txt','r') as file:
-        pair = []
         for line in file:
-            line = line.rstrip('\n')
-            if line == '':
-                data.append(pair)
-                pair = []
-            else:
-                pair.append(eval(line))
-                
-    for i in range(1, len(data)):
-        correct = compare(data[i][0], data[i][1])
-        if correct == True:
-            correct_order += i
+            if line != '\n':
+                data.append(eval(line.rstrip('\n')))
+    # Append the 2 extra
+    data.append([[2]])
+    data.append([[6]])
+    # Bubble Sort
+    while True:
+        sorts = 0
+        for i in range(2, len(data)):
+            correct = compare(data[i-1],data[i])
+            if not correct:
+                data[i-1], data[i] = data[i], data[i-1]
+                sorts += 1
+        if sorts == 0:
+            break
+    x = data.index([[2]])
+    y = data.index([[6]])
+    print(x*y)
 
-    print(correct_order)
 
 def compare(left, right):
+    # Make a shallow copy so that the lists won't be changed
+    left,right = left[:],right[:]
     for i in range(min(len(left), len(right))):
         # Check if both are ints
         if isinstance(left[i], int) and isinstance(right[i], int):
