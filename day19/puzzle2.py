@@ -1,3 +1,7 @@
+import math
+
+# Only first 3 blueprints, 32 mins
+
 
 # ore needs ore,clay needs ore,obsidian needs ore and clay,geode needs ore and obsidian
 most_geode = 0
@@ -16,13 +20,11 @@ def main():
     # Need to find optimal way for obsidian generation by 24 minutes. branches are which robot to build. If not enough resources, wait the same amount of time until you can
 
     blueprint_values = []
-    i = 0
-    for blueprint in blueprints:
+    for i in range(3):
         most_geode = 0
-        i += 1
-        build_order_finder(blueprint,24,(1,0,0,0))
-        blueprint_values.append(most_geode * i)
-    print(sum(blueprint_values))
+        build_order_finder(blueprints[i],32,(1,0,0,0))
+        blueprint_values.append(most_geode)
+    print(math.prod(blueprint_values))
 
     # Decide beforehand which to build, and then gather the resources for it.
 def build_order_finder(blueprint,time,robots,resources=(0,0,0,0),design=None):
