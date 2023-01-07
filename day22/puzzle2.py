@@ -1,3 +1,6 @@
+## Huge credit to u/RedTwinkleToes!, its more their answer than mine.
+
+
 x = open("input.txt", "r").read()
 grid, ins = x.split("\n\n")
 
