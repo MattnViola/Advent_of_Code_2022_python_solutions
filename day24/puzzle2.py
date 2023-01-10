@@ -51,6 +51,9 @@ def route_search(bliz_over_time, pos, goal):
 
         if t == len(bliz_over_time):
             bliz_over_time.append(move_blizzards(bliz_over_time[t-1]))
+        set_bliz = set()
+        for x in bliz_over_time[t]:
+            set_bliz.update(map(tuple,x))
         # Checks new queue nodes validity / if it's the goal
         for ny,nx in new_queue:
             if (ny,nx) == goal:
@@ -58,7 +61,7 @@ def route_search(bliz_over_time, pos, goal):
                     print(t)
                     return
                 if going_back == True:
-                    back_again = Fals
+                    back_again = False
                     queue = [goal]
                     pos,goal = goal,pos
                     break             
@@ -69,9 +72,6 @@ def route_search(bliz_over_time, pos, goal):
             
             if (ny <= 0 or ny >= dim[0] or nx <= 0 or nx >= dim[1]) and ((ny,nx) != (0,1) and (ny,nx) != goal):
                 continue
-            set_bliz = set()
-            for x in bliz_over_time[t]:
-                set_bliz.update(map(tuple,x))
             if (ny,nx) not in set_bliz:
                 queue.append((ny,nx))
                 
